@@ -1,5 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <p class="title is-4">Source sode</p>
+    <a href="https://github.com/jacoyutorius/vue-amplify-appsync-chat">https://github.com/jacoyutorius/vue-amplify-appsync-chat</a>
   </div>
 </template>

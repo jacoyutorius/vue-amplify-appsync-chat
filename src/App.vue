@@ -1,12 +1,30 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <h1 class="title">Vue + Amplify + AppSync</h1>
+
+    <div id="nav" class="tabs is-centered is-toggle is-toggle-rounded">
+      <ul>
+        <li v-bind:class="homeIsActive"><router-link to="/">Home</router-link></li>
+        <li v-bind:class="aboutIsActive"><router-link to="/about">About</router-link></li>
+      </ul>
     </div>
+
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    homeIsActive: function() {
+      return this.$route.name === 'home' ? 'is-active' : '';
+    },
+    aboutIsActive: function() {
+      return this.$route.name === 'about' ? 'is-active' : '';
+    }
+  }
+}
+</script>
 
 <style>
 #app {
