@@ -6,6 +6,8 @@ export const createChat = `mutation CreateChat($input: CreateChatInput!) {
     id
     name
     message
+    createdAt
+    updatedAt
   }
 }
 `;
@@ -14,6 +16,8 @@ export const updateChat = `mutation UpdateChat($input: UpdateChatInput!) {
     id
     name
     message
+    createdAt
+    updatedAt
   }
 }
 `;
@@ -22,6 +26,8 @@ export const deleteChat = `mutation DeleteChat($input: DeleteChatInput!) {
     id
     name
     message
+    createdAt
+    updatedAt
   }
 }
 `;

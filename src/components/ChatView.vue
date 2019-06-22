@@ -1,29 +1,42 @@
 <template>
   <section id="chat">
     <form action="">
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input type="text" class="input" v-model="name">
-        </div>
-      </div>
+      <div class="box">
+        <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img src="http://placekitten.com/g/128/128" alt="Image">
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input type="text" class="input" v-model="name" placeholder="name">
+                </div>
+              </div>
 
-      <div class="field">
-        <label class="label">Message</label>
-        <div class="control">
-          <textarea class="textarea" placeholder="Textarea" v-model="message"></textarea>
-        </div>
-      </div>
+              <div class="field">
+                <label class="label">Message</label>
+                <div class="control">
+                  <textarea class="textarea" placeholder="Textarea" v-model="message"></textarea>
+                </div>
+              </div>
 
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-link" @click="submit">Submit</button>
-        </div>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="button is-link" @click="submit">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </form>
 
     <div>
-      <div v-for="(chat, i) in chatRecords" v-bind:key="i">
+      <div v-for="(chat, i) in this.chatRecordsByTimeline" v-bind:key="i">
         <div class="box">
           <article class="media">
             <div class="media-left">
@@ -34,30 +47,11 @@
             <div class="media-content">
               <div class="content">
                 <p>
-                  <strong>{{ chat.name }}</strong> <small>{{ chat.id }}</small> <small>31m</small>
+                  <strong>{{ chat.name }}</strong> <small>{{ getCreatedAt(chat.createdAt) }}</small>
                   <br>
                    {{ chat.message }}
                 </p>
               </div>
-              <nav class="level is-mobile">
-                <div class="level-left">
-                  <a class="level-item" aria-label="reply">
-                    <span class="icon is-small">
-                      <i class="fas fa-reply" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="retweet">
-                    <span class="icon is-small">
-                      <i class="fas fa-retweet" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                  <a class="level-item" aria-label="like">
-                    <span class="icon is-small">
-                      <i class="fas fa-heart" aria-hidden="true"></i>
-                    </span>
-                  </a>
-                </div>
-              </nav>
             </div>
           </article>
         </div>
@@ -92,10 +86,14 @@ export default {
       graphqlOperation(subscriptions.onCreateChat)
     ).subscribe({
         next: function(chatData) {
-          console.log(chatData)
           this.chatRecords.push(chatData.value.data.onCreateChat);
         }.bind(this)
     });
+  },
+  computed: {
+    chatRecordsByTimeline: function() {
+      return this.chatRecords.reverse();
+    }
   },
   methods: {
     submit: async function() {
@@ -105,9 +103,11 @@ export default {
       };
 
       const chat = await API.graphql(graphqlOperation(mutations.createChat, {input: chatParams}));
-      console.log(chat);
-
       this.message = '';
+    },
+    getCreatedAt: function(createdAt) {
+      const date = new Date(createdAt);
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     }
   }
 }

@@ -7,7 +7,6 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
 import ChatView from '@/components/ChatView.vue'
 
 export default {

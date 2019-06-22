@@ -6,6 +6,8 @@ export const getChat = `query GetChat($id: ID!) {
     id
     name
     message
+    createdAt
+    updatedAt
   }
 }
 `;
@@ -19,6 +21,8 @@ export const listChats = `query ListChats(
       id
       name
       message
+      createdAt
+      updatedAt
     }
     nextToken
   }

@@ -6,6 +6,8 @@ export const onCreateChat = `subscription OnCreateChat {
     id
     name
     message
+    createdAt
+    updatedAt
   }
 }
 `;
@@ -14,6 +16,8 @@ export const onUpdateChat = `subscription OnUpdateChat {
     id
     name
     message
+    createdAt
+    updatedAt
   }
 }
 `;
@@ -22,6 +26,8 @@ export const onDeleteChat = `subscription OnDeleteChat {
     id
     name
     message
+    createdAt
+    updatedAt
   }
 }
 `;
