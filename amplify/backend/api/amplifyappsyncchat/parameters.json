@@ -1,0 +1,4 @@
+{
+    "AppSyncApiName": "amplifyappsyncchat",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST"
+}
